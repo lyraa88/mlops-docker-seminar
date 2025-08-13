@@ -1,0 +1,80 @@
+version: "3.8"
+
+services:
+  # 1. 유라 모델
+  es1:
+    container_name: modeling_server
+    image: ghcr.io/mlflow/mlflow:v2.3.2
+
+    volumes:
+      - mlops-data:/mlruns
+    command: >
+      mlflow server
+      --host 0.0.0.0
+      --port 5000
+      --backend-store-uri file:///mlruns
+    networks:
+      - mlops-network
+
+  # 2. 은수 언니 배포  - 여기에서 외부로 포트 연결
+  es2:
+    container_name: api_server
+    build: ./api_server
+    ports:
+      - "9090:9090"
+
+    volumes:
+      - mlops-data:/mlruns
+    environment:
+      - MLFLOW_TRACKING_URI=http://es1:5000
+      - "discovery.seed_hosts=es2,es3"
+      - "cluster.initial_master_nodes=es1,es2,es3"
+    depends_on:
+      - es1
+      - es3
+      - es4
+    networks:
+      - mlops-network
+
+  # 3. JupyterLab
+  es3:
+    container_name: jupyter_lab
+    image: jupyter/scipy-notebook:latest
+
+    volumes:
+      - ./notebooks:/home/jovyan/work
+      - mlops-data:/mlruns
+    environment:
+      - MLFLOW_TRACKING_URI=http://es1:5000
+      - JUPYTER_ENABLE_LAB=yes
+      - JUPYTER_TOKEN=your_secret_token
+      - "discovery.seed_hosts=es2,es3"
+      - "cluster.initial_master_nodes=es1,es2,es3"
+    depends_on:
+      - es1
+    networks:
+      - mlops-network
+
+  # 4. 스케줄러
+  es4:
+    container_name: model_scheduler
+    build: ./scheduler
+
+
+    volumes:
+      - mlops-data:/mlruns
+    environment:
+      - MLFLOW_TRACKING_URI=http://es1:5000
+      - "discovery.seed_hosts=es2,es3"
+      - "cluster.initial_master_nodes=es1,es2,es3"
+    depends_on:
+      - es1
+    networks:
+      - mlops-network
+
+networks:
+  mlops-network:
+    driver: bridge
+
+volumes:
+  mlops-data:
