@@ -7,4 +7,4 @@ mlops-docker-seminar
 
 유후@@
 
-드디어 완성?
+드디어 완성? 넹
