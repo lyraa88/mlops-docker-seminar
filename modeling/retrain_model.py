@@ -84,4 +84,4 @@ print("재학습이 완료되었습니다.")
 
 # 재학습된 모델 저장
 torch.save(model.state_dict(), 'best_mnist_model_retrained.pth')
-print("재학습된 모델을 best_mnist_model_retrained.pth로 저장했습니다.")
+print("재학습된 모델을 best_mnist_model_retrained.pth로 저장했습니다.!!")
