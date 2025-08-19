@@ -1,5 +1,5 @@
-torch==2.8.0+cpu
-torchvision==0.18.1+cpu
+torch==2.8.0
+torchvision==0.18.1
 pillow>=9.0.0
 numpy>=1.25.0
 pandas>=2.1.0
