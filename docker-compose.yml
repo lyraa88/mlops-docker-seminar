@@ -1,0 +1,50 @@
+services:
+  streamlit:
+    build: ./streamlit_app
+    container_name: mnist_streamlit
+    volumes:
+      - ./share_storage:/app/share_storage
+      - ./modeling/mnist_model.py:/app/mnist_model.py:ro
+      - mnist_cache:/app/.torch
+    ports:
+      - "8501:8501"
+    environment:
+      - SHARE_DIR=/app/share_storage
+    depends_on:
+      trigger:
+        condition: service_started
+
+  trigger:
+    build: ./trigger
+    container_name: mnist_trigger
+    volumes:
+      - ./share_storage:/app/share_storage
+      - ./modeling/mnist_model.py:/app/mnist_model.py:ro
+      - mnist_cache:/app/.torch
+    environment:
+      - SHARE_DIR=/app/share_storage
+      - TZ=Asia/Seoul
+      - RUN_AT_HH=17
+      - RUN_AT_MM=00
+      - MNIST_SUBSET_N=5000
+      - MNIST_TEST_PER_CLASS=100
+      - TEST_SOURCE=hybrid_aug
+      - TEST_ROT_DEG=15
+      - TEST_NOISE_STD=0.15
+    command: ["python", "-u", "trigger.py"]
+
+  modeling:
+    build: ./modeling
+    container_name: mnist_modeling
+    volumes:
+      - ./share_storage:/app/share_storage
+      - mnist_cache:/app/.torch
+    environment:
+      - SHARE_DIR=/app/share_storage
+      - MNIST_TEST_PER_CLASS=100
+      - TEST_ROT_DEG=15
+      - TEST_NOISE_STD=0.15
+    command: ["python", "-u", "mnist_model.py"]
+
+volumes:
+  mnist_cache: {}
