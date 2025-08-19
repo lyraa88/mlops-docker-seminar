@@ -1,12 +1,3 @@
-# mlops-docker-seminar
-mlops-docker-seminar
+# mlops-docker-seminar 테스트용
 
-야호~
-
-릴룰~
-
-유후@@
-
-드디어 완성? 넹
-
-ㅎㅎ
+테스트용~~~
