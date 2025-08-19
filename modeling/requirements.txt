@@ -1,6 +1,6 @@
-torch==2.8.0
-torchvision==0.18.1
-pillow
-numpy
-pandas
-opencv-python-headless
+torch==2.8.0+cpu
+torchvision==0.18.1+cpu
+pillow>=9.0.0
+numpy>=1.25.0
+pandas>=2.1.0
+opencv-python-headless>=4.8.0
