@@ -10,15 +10,20 @@ import matplotlib.ticker as mticker
 
 
 
-sys.path.append("/app")
+# app.py 기준으로 modeling 폴더 경로 추가
+current_dir = os.path.dirname(os.path.abspath(__file__))
+modeling_path = os.path.join(current_dir, "..", "modeling")
+sys.path.append(modeling_path)
 
 from mnist_model import load_model, get_transforms, preprocess_to_28x28
+
 
 # ---------------- Directories ----------------
 SHARE = os.environ.get("SHARE_DIR", "/app/share_storage")
 MODEL_PATH     = os.path.join(SHARE, "model", "model.pth")
 LATEST_METRICS = os.path.join(SHARE, "metrics", "latest.json")
-HISTORY        = os.path.join(SHARE, "metrics", "history.csv")
+# HISTORY        = os.path.join(SHARE, "metrics", "history.csv")
+HISTORY = "/Users/lyra8/final_docker_mlops/share_storage/metrics/history.csv"
 LOG_UPLOADS    = os.path.join(SHARE, "logs", "uploads.csv")
 LOG_MISLABEL   = os.path.join(SHARE, "logs", "mislabels.csv")
 BACKUP_DIR     = os.path.join(SHARE, "backupdata")
@@ -56,22 +61,48 @@ def save_png(dst_dir, image: Image.Image, fname: str):
 @st.cache_resource
 def _tfm(): return get_transforms()
 
+
 # ---------------- Sidebar: metrics ----------------
 st.sidebar.header("📈 Model performance")
 
 def _load_hist(path):
-    if not os.path.exists(path): return None
+    # CSV가 없으면 빈 DataFrame 반환
+    if not os.path.exists(path):
+        return pd.DataFrame(columns=["ts","date","time","version",
+                                     "accuracy_clean","accuracy_aug",
+                                     "loss_clean","loss_aug"])
+    
     df = pd.read_csv(path)
+    
+    # 날짜 컬럼 처리
     if "ts" in df.columns:
         df["date"] = pd.to_datetime(df["ts"], unit="s").dt.date
     elif "date" in df.columns:
         df["date"] = pd.to_datetime(df["date"]).dt.date
     else:
-        return None
+        df["date"] = pd.NA  # 없으면 NaT로 처리
+    
+    # 필요한 컬럼 체크, 없으면 추가
     for col in ["accuracy_clean","accuracy_aug","loss_clean","loss_aug"]:
         if col not in df.columns:
             df[col] = pd.NA
+    
     return df
+
+
+# def _load_hist(path):
+#     if not os.path.exists(path): return None
+#     df = pd.read_csv(path)
+#     if "ts" in df.columns:
+#         df["date"] = pd.to_datetime(df["ts"], unit="s").dt.date
+#     elif "date" in df.columns:
+#         df["date"] = pd.to_datetime(df["date"]).dt.date
+#     else:
+#         return None
+#     for col in ["accuracy_clean","accuracy_aug","loss_clean","loss_aug"]:
+#         if col not in df.columns:
+#             df[col] = pd.NA
+#     return df
 
 hist = _load_hist(HISTORY)
 
@@ -180,10 +211,13 @@ if upload and name.strip():
                 st.experimental_rerun()
 
 # ---------------- Main 하단: Performance History ----------------
+
+
 st.markdown("---")
 st.subheader("📊 Model performance history")
 # 날짜 타입 변환
 hist["date"] = pd.to_datetime(hist["date"])
+
 
 fig, ax1 = plt.subplots(figsize=(6,3))
 ax1.plot(hist["date"], hist["loss_clean"], color="red", marker="x", label="Loss (Clean)")
