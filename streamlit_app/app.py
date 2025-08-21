@@ -1,3 +1,4 @@
+# 필요한 라이브러리 설치
 import os, json, time, uuid, datetime, io
 import pandas as pd
 import streamlit as st
