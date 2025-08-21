@@ -2,7 +2,7 @@
 
 사용자 데이터를 기반으로 CNN 모델을 자동 재학습하고, 최신 모델을 배포하는 **MLOps 파이프라인 프로젝트**입니다.  
 
-### [📑 PPT](https://drive.google.com/file/d/1jh6C4h_5U6yAmzxG0aGFmdq3zrTq20aM/view?usp=drive_link) | [🎥 Docker를 활용한 MLOps 구축 시연](https://youtu.be/POb1gV_6WkM)
+### [📑 PPT](https://drive.google.com/file/d/1PhzmUYa8kG9stoeywFc_wLl2aUckNSYq/view?usp=drive_link) | [🎥 Docker를 활용한 MLOps 구축 시연](https://youtu.be/POb1gV_6WkM)
 
 > ⚠️ 본 streamlit 사이트는 ngrok으로 로컬을 외부에 공개한 것이라 보안상 프로젝트 진행 시에만 열어두며, 평상시에는 닫혀 있으니 시연은 영상을 참조해 주세요.
 
@@ -13,7 +13,7 @@
 
 [<img src="https://img.shields.io/badge/Streamlit-App-ff4b4b?style=for-the-badge&logo=streamlit&logoColor=white" width="180"/>](https://fdc715794a4f.ngrok-free.app/)
 
-![Demo Dashboard](https://github.com/user-attachments/assets/296494f3-ca99-4e6a-9f05-0ece5705e22d)
+![Demo Dashboard](images/dashboard.png)
 
 #### Metrics 설명
 - **Clean**  
@@ -26,7 +26,7 @@
 ## 🏗 Architecture
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/a31b7f4d-1d0a-41bf-8b3b-96000f2b6af4" width="600"/>
+  <img src="images/architecture.png" width="600"/>
 </p>
 
 - **Modeling**: CNN 학습 및 재학습 (MNIST + 사용자 데이터)  
@@ -45,8 +45,9 @@
   - Conv2D → ReLU → MaxPooling → Flatten → Dense → Softmax 구조  
 
 <p align="center">
-  <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxODA3MjRfMjY2%2FMDAxNTMyMzcyMDYxMDMy.PmIBf5KthK18THNb8ZqN5Hm01Bzq0OOF6xmqckTiDAYg.JwhrTSf4LHQcvtKZ0MIvmiocRHVfyI9JLoAx-KylljEg.PNG.jsky10503%2FCNN.png&type=sc960_832" width="500"/>
+  <img src="images/cnn_structure.png" width="500"/>
 </p>
+
 
 - **자동 재학습 (Re-training)**  
   - 사용자가 업로드한 피드백 데이터 + 기존 데이터 일부(리허설 데이터)를 함께 학습  
@@ -106,7 +107,7 @@ TECH_SEMINAR_DM/
 - **uploads**: 사용자 입력 데이터 저장  
 - **data/backupdata**: 재학습 데이터와 백업 데이터 분리  
 <p align="center">
-  <img width="850" height="350" alt="image" src="https://github.com/user-attachments/assets/4ab7b8fd-707b-4056-afab-40ab790d052e" />
+  <img src="images/logging.png" width="850" height="350"/>
 </p>
 
 ---
@@ -117,7 +118,7 @@ TECH_SEMINAR_DM/
 - 재학습 후 성능 기록 & 이전 모델과 비교 가능  
 - 버전: v1, v2, v3 … 추적 및 복원 가능
 <p align="center">
-  <img width="656" height="567" alt="image" src="https://github.com/user-attachments/assets/59d3c38d-7bce-4fb4-93c7-03372e7b7ed9" />
+  <img src="images/modeling_retraining_workflow.png" width="656" height="567"/>
 </p>
 
 
