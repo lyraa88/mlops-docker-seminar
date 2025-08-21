@@ -11,7 +11,7 @@
 
 ## 📊 Demo & Dashboard
 
-[<img src="https://img.shields.io/badge/Streamlit-App-ff4b4b?style=for-the-badge&logo=streamlit&logoColor=white" width="180"/>](https://fdc715794a4f.ngrok-free.app/)
+[<img src="https://img.shields.io/badge/Streamlit-App-ff4b4b?style=for-the-badge&logo=streamlit&logoColor=white" width="180"/>](https://6cf6e04fe421.ngrok-free.app/)
 
 ![Demo Dashboard](images/dashboard.png)
 
