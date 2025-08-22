@@ -2,7 +2,7 @@
 
 사용자 데이터를 기반으로 CNN 모델을 자동 재학습하고, 최신 모델을 배포하는 **MLOps 파이프라인 프로젝트**입니다.  
 
-### [📑 PPT](https://drive.google.com/file/d/1zxkI1q1RGPjqjZ6O__ldV0fimQyLqd2c/view?usp=drive_link) | [🎥 Docker를 활용한 MLOps 구축 시연](https://youtu.be/POb1gV_6WkM)
+### [📑 PPT](https://drive.google.com/file/d/1fwr3r07zdh61IpRNPrVcJPoKOn-nCs8k/view?usp=drive_link) | [🎥 Docker를 활용한 MLOps 구축 시연](https://youtu.be/POb1gV_6WkM)
 
 > ⚠️ 본 streamlit 사이트는 ngrok으로 로컬을 외부에 공개한 것이라 보안상 프로젝트 진행 시에만 열어두며, 평상시에는 닫혀 있으니 시연은 영상을 참조해 주세요.
 
