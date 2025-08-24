@@ -1,6 +1,7 @@
 # ✍️ Auto CNN Re-Training MLOps with Docker
 
-사용자 데이터를 기반으로 CNN 모델을 자동 재학습하고, 최신 모델을 배포하는 **MLOps 파이프라인 프로젝트**입니다.  
+이 프로젝트는 **MNIST 손글씨 CNN 모델**을 대상으로,
+사용자가 올린 이미지와 피드백을 반영해 **자동 재학습과 모니터링**까지 이어지는 **Docker 기반 MLOps 프로토타입**입니다.
 
 ### [📑 PPT](https://drive.google.com/file/d/1hNHg8BM54aBaoCljuUbipmdP5_5JnKSf/view?usp=sharing) | [🎥 Docker를 활용한 MLOps 구축 시연](https://youtu.be/POb1gV_6WkM)
 
@@ -164,3 +165,5 @@ TECH_SEMINAR_DM/
 | 김은수 | 모델 배포 및 파이프라인 조율 |
 | 김유라 | CNN 모델링 및 자동 재학습 구현 |
 | 김지윤 | Trigger 설계 및 자동화 파이프라인 구축 |
+
+🏆 본 프로젝트는 우리FISA 1차 기술 세미나 우수 프로젝트로 선정되었습니다
